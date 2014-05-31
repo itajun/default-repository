@@ -7,6 +7,13 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../sandbox-parent/pom.xml</relativePath>
 	</parent>
-	
-	<artifactId>sandbox-model</artifactId>
+	<artifactId>sandbox-persistence</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>br.ivj.sandbox</groupId>
+			<artifactId>sandbox-model</artifactId>
+			<version>${pom.parent.version}</version>
+		</dependency>
+	</dependencies>
 </project>
