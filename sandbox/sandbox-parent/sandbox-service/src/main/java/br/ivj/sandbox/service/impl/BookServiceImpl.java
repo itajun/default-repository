@@ -13,11 +13,15 @@ public class BookServiceImpl implements BookService {
 	private BookRepository repository;
 
 	public Book createBook(Book book) {
-		if ("TEST".equals(book.getTitle())) {
+		if ("FORCE_ERROR".equals(book.getTitle())) {
 			// TODO BusinessException and internationalization
 			throw new RuntimeException("Chega de testes");
 		}
 		
 		return repository.createBook(book);
+	}
+
+	public Book findBookById(Integer id) {
+		return repository.findBookById(id);
 	}
 }

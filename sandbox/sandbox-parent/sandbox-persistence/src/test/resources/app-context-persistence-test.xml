@@ -12,10 +12,16 @@ http://www.springframework.org/schema/context/spring-context-3.1.xsd
 http://www.springframework.org/schema/util
 http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
-	<context:annotation-config />
-	<context:component-scan base-package="br.ivj.sandbox.repository" />
+	<import resource="classpath:app-context-persistence.xml"/>
 
-	<beans profile="production">
+	<beans profile="development">
+		<jdbc:embedded-database id="dataSource" type="H2">
+			<jdbc:script location="classpath:schema.sql" />
+			<jdbc:script location="classpath:test-data.sql" />
+		</jdbc:embedded-database>
+	</beans>
+
+	<beans profile="tests">
 		<!-- Change it accordingly -->
 		<jdbc:embedded-database id="dataSource" type="H2">
 			<jdbc:script location="classpath:schema.sql" />
