@@ -21,7 +21,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/app-context-service.xml",
+@ContextConfiguration(locations = { "/app-context-service-test.xml",
 		"/app-context-persistence-test.xml" })
 @ActiveProfiles(profiles = { "development" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,

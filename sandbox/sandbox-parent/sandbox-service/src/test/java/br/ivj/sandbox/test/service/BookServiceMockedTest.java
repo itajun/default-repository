@@ -20,18 +20,21 @@ import br.ivj.sandbox.repository.BookRepository;
 import br.ivj.sandbox.service.BookService;
 
 /**
- * I kept this class here just as an example, but it doesn't work. Apparently there's a bug on Mockito, as it stopped working as soon
- * as I added two fields of the same type (BookRepository) in the service. After two hours trying to work it around, I gave up. If I ever
- * face the same problem in real life, the easier solution would be to add a setter to the implementation and force the mock into the
- * injected bean.
+ * I kept this class here just as an example, but it doesn't work. Apparently
+ * there's a bug on Mockito, as it stopped working as soon as I added two fields
+ * of the same type (BookRepository) in the service. After two hours trying to
+ * work it around, I gave up. If I ever face the same problem in real life, the
+ * easier solution would be to add a setter to the implementation and force the
+ * mock into the injected bean.
  * 
  * No longer valid...
+ * 
  * @RunWith(SpringJUnit4ClassRunner.class)
  * 
  * @author Itamar
- *
+ * 
  */
-@ContextConfiguration(locations = { "/app-context-service.xml",
+@ContextConfiguration(locations = { "/app-context-service-test.xml",
 		"/app-context-persistence-test.xml" })
 @ActiveProfiles(profiles = { "development" })
 /*

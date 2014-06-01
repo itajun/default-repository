@@ -27,13 +27,16 @@ http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 				<value>classpath:crypto-properties.properties</value>
 			</list>
 		</property>
-
 	</bean>
 
 	<bean id="environmentVariablesConfiguration"
 		class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
 		<property name="algorithm" value="PBEWITHMD5ANDDES" />
+		<property name="password" value="myPass" />
+		<!--
+		Use this if you want to export your password to an environment variable 
 		<property name="passwordEnvName" value="APP_ENCRYPTION_PASSWORD" />
+		 -->
 	</bean>
 
 	<bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">

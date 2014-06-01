@@ -13,9 +13,9 @@ import br.ivj.sandbox.entity.Book;
 import br.ivj.sandbox.service.BookService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/app-context-service.xml",
+@ContextConfiguration(locations = { "/app-context-service-test.xml",
 		"/app-context-persistence-test.xml" })
-@ActiveProfiles(profiles={"development"})
+@ActiveProfiles(profiles = { "development" })
 public class BookServiceTest {
 	@Autowired
 	private BookService bookService;
