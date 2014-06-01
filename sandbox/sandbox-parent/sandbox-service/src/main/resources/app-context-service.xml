@@ -14,8 +14,29 @@ http://www.springframework.org/schema/tx
 http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
 http://www.springframework.org/schema/util
 http://www.springframework.org/schema/util/spring-util-3.1.xsd">
-	
+
 	<context:annotation-config />
 	<context:component-scan base-package="br.ivj.sandbox.service" />
-	<tx:annotation-driven transaction-manager="transactionManager" />	
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean id="propertyConfigurer"
+		class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
+		<constructor-arg ref="configurationEncryptor" />
+		<property name="locations">
+			<list>
+				<value>classpath:crypto-properties.properties</value>
+			</list>
+		</property>
+
+	</bean>
+
+	<bean id="environmentVariablesConfiguration"
+		class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+		<property name="algorithm" value="PBEWITHMD5ANDDES" />
+		<property name="passwordEnvName" value="APP_ENCRYPTION_PASSWORD" />
+	</bean>
+
+	<bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<property name="config" ref="environmentVariablesConfiguration" />
+	</bean>
 </beans>
