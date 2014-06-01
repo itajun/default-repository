@@ -7,4 +7,21 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>sandbox-batch</artifactId>
+	<dependencies>
+		<dependency>
+			<groupId>br.ivj.sandbox</groupId>
+			<artifactId>sandbox-model</artifactId>
+			<version>${pom.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>br.ivj.sandbox</groupId>
+			<artifactId>sandbox-service</artifactId>
+			<version>${pom.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>br.ivj.sandbox</groupId>
+			<artifactId>sandbox-persistence</artifactId>
+			<version>${pom.parent.version}</version>
+		</dependency>
+	</dependencies>	
 </project>

@@ -21,7 +21,7 @@ http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 			<property name="password" value="" />
 		</bean>
 
-		<jdbc:initialize-database data-source="sandboxJdbcDataSource">
+		<jdbc:initialize-database data-source="sandboxDataSource">
 			<jdbc:script location="classpath:schema.sql" />
 			<jdbc:script location="classpath:test-data.sql" />
 		</jdbc:initialize-database>
@@ -32,7 +32,7 @@ http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 			<property name="password" value="" />
 		</bean>
 
-		<jdbc:initialize-database data-source="legacyJdbcDataSource">
+		<jdbc:initialize-database data-source="legacyDataSource">
 			<jdbc:script location="classpath:legacy-schema.sql" />
 			<jdbc:script location="classpath:legacy-test-data.sql" />
 		</jdbc:initialize-database>		
@@ -45,7 +45,7 @@ http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 			<property name="password" value="" />
 		</bean>
 
-		<jdbc:initialize-database data-source="sandboxJdbcDataSource">
+		<jdbc:initialize-database data-source="sandboxDataSource">
 			<jdbc:script location="classpath:schema.sql" />
 			<jdbc:script location="classpath:test-data.sql" />
 		</jdbc:initialize-database>
@@ -57,7 +57,7 @@ http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 			<property name="password" value="" />
 		</bean>
 
-		<jdbc:initialize-database data-source="legacyJdbcDataSource">
+		<jdbc:initialize-database data-source="legacyDataSource">
 			<jdbc:script location="classpath:legacy-schema.sql" />
 			<jdbc:script location="classpath:legacy-test-data.sql" />
 		</jdbc:initialize-database>		

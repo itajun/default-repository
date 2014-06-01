@@ -1,0 +1,78 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:batch="http://www.springframework.org/schema/batch" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/batch
+	http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/util 
+	http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+	<batch:job id="combinedFiles2DBJob">
+		<batch:step id="readAuthors" next="readAndWriteBooks">
+			<batch:tasklet>
+				<batch:chunk reader="authorXmlItemReader"
+					writer="externalAuthorCacheRepositoryWriter"
+					commit-interval="1">
+				</batch:chunk>
+			</batch:tasklet>
+			<batch:listeners>
+				<batch:listener ref="loggerSandboxStepListener" />
+			</batch:listeners>
+		</batch:step>
+		<batch:step id="readAndWriteBooks">
+			<batch:tasklet>
+				<batch:chunk reader="bookXmlItemReader" processor="combineBookAuthorProcessor"
+					writer="bookServiceWriter"
+					commit-interval="1">
+				</batch:chunk>
+			</batch:tasklet>
+			<batch:listeners>
+				<batch:listener ref="loggerSandboxStepListener" />
+			</batch:listeners>
+		</batch:step>
+	</batch:job>
+
+	<bean id="authorXmlItemReader" class="org.springframework.batch.item.xml.StaxEventItemReader">
+		<property name="fragmentRootElementName" value="author" />
+		<property name="resource" value="classpath:xml/authors-sample.xml" />
+		<property name="unmarshaller" ref="externalAppAuthorUnmarshaller" />
+	</bean>
+	
+	<bean id="bookXmlItemReader" class="org.springframework.batch.item.xml.StaxEventItemReader">
+		<property name="fragmentRootElementName" value="book" />
+		<property name="resource" value="classpath:xml/books-sample.xml" />
+		<property name="unmarshaller" ref="externalAppBookUnmarshaller" />
+	</bean>
+
+	<!-- Read and map values to object, via jaxb2 -->
+	<bean id="externalAppBookUnmarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="classesToBeBound">
+			<list>
+				<value>br.ivj.sandbox.batch.external.entity.ExternalAppBook</value>
+			</list>
+		</property>
+	</bean>	
+
+	<!-- Read and map values to object, via jaxb2 -->
+	<bean id="externalAppAuthorUnmarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="classesToBeBound">
+			<list>
+				<value>br.ivj.sandbox.batch.external.entity.ExternalAppAuthor</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="externalAuthorCacheRepositoryWriter"
+		class="org.springframework.batch.item.adapter.ItemWriterAdapter">
+		<property name="targetObject" ref="externalAuthorCacheRepository" />
+		<property name="targetMethod" value="addCachedAuthor" />
+	</bean>
+
+	<bean id="bookServiceWriter"
+		class="org.springframework.batch.item.adapter.ItemWriterAdapter">
+		<property name="targetObject" ref="bookService" />
+		<property name="targetMethod" value="createBook" />
+	</bean>
+
+</beans>

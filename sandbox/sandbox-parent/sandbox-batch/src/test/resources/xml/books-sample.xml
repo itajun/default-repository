@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<books>
+	<book>
+		<title>BOOK_TITLE 1</title>
+		<author>1</author>
+	</book>
+	<book>
+		<title>BOOK_TITLE 2</title>
+		<author>1</author>
+	</book>
+	<book>
+		<title>BOOK_TITLE UNWANTED</title>
+		<author>1</author>
+	</book>
+</books>

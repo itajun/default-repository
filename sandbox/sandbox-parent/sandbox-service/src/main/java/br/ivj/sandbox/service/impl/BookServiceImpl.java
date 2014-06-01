@@ -9,7 +9,7 @@ import br.ivj.sandbox.entity.Book;
 import br.ivj.sandbox.repository.BookRepository;
 import br.ivj.sandbox.service.BookService;
 
-@Service
+@Service("bookService")
 @Transactional
 public class BookServiceImpl implements BookService {
 	@Autowired

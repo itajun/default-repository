@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<authors>
+	<author id="1">
+		<firstName>FIRST_NAME 1</firstName>
+		<lastName>LAST_NAME 1</lastName>
+		<birthDate>1980-07-30</birthDate>
+		<hobby>
+			<hobbyId>Swimming</hobbyId>
+		</hobby>
+		<hobby>
+			<hobbyId>Movies</hobbyId>
+		</hobby>
+	</author>
+	<author id="2">
+		<firstName>FIRST_NAME 2</firstName>
+		<lastName>LAST_NAME 2</lastName>
+		<birthDate>1981-07-30</birthDate>
+		<hobby>
+			<hobbyId>Swimming</hobbyId>
+		</hobby>
+		<hobby>
+			<hobbyId>Movies</hobbyId>
+		</hobby>
+	</author>
+	<author id="3">
+		<firstName>FIRST_NAME 3</firstName>
+		<lastName>LAST_NAME 3</lastName>
+		<birthDate>1980-07-30</birthDate>
+		<hobby>
+			<hobbyId>Swimming</hobbyId>
+		</hobby>
+		<hobby>
+			<hobbyId>Movies</hobbyId>
+		</hobby>
+	</author>
+</authors>

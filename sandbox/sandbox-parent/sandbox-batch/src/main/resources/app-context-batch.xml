@@ -19,16 +19,38 @@ http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 	<context:component-scan base-package="br.ivj.sandbox.batch" />
 
 	<beans>
-		<jdbc:embedded-database id="jobJdbcDataSource"
-			type="H2">
+		<bean id="jobJdbcDataSource" class="org.h2.jdbcx.JdbcDataSource">
+			<property name="URL" value="jdbc:h2:mem:xa_testJob" />
+			<property name="user" value="sa" />
+			<property name="password" value="" />
+		</bean>
+
+		<jdbc:initialize-database data-source="jobDataSource">
 			<jdbc:script
 				location="classpath:/org/springframework/batch/core/schema-h2.sql" />
-		</jdbc:embedded-database>
-		
-	    <bean id="jobDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean" init-method="init" destroy-method="close">
-	        <property name="xaDataSource" ref="jobJdbcDataSource"/>
-	        <property name="uniqueResourceName" value="jobDatabase"/>
-	    </bean>		
+		</jdbc:initialize-database>
+
+		<!-- Construct Atomikos UserTransactionManager, needed to configure Spring -->
+		<bean id="atomikosJobTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+			init-method="init" destroy-method="close">
+			<!-- when close is called, should we force transactions to terminate or not? -->
+			<property name="forceShutdown">
+				<value>true</value>
+			</property>
+		</bean>
+
+		<!-- Also use Atomikos UserTransactionImp, needed to configure Spring -->
+		<bean id="atomikosJobUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp">
+			<property name="transactionTimeout">
+				<value>300</value>
+			</property>
+		</bean>
+
+		<bean id="jobDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean"
+			init-method="init" destroy-method="close">
+			<property name="xaDataSource" ref="jobJdbcDataSource" />
+			<property name="uniqueResourceName" value="jobDatabase" />
+		</bean>
 
 		<bean id="jobRepository"
 			class="org.springframework.batch.core.repository.support.JobRepositoryFactoryBean">
@@ -37,7 +59,7 @@ http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 			<property name="transactionManager" ref="transactionManager" />
 			<property name="isolationLevelForCreate" value="ISOLATION_DEFAULT" />
 		</bean>
-		
+
 		<bean id="jobLauncher"
 			class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
 			<property name="jobRepository" ref="jobRepository" />
