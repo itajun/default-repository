@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:p="http://www.springframework.org/schema/p" xmlns:c="http://www.springframework.org/schema/c"
 	xmlns:util="http://www.springframework.org/schema/util" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+http://www.springframework.org/schema/task
+http://www.springframework.org/schema/task/spring-task-3.1.xsd
 http://www.springframework.org/schema/jdbc
 http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
 http://www.springframework.org/schema/context
@@ -18,6 +20,8 @@ http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 	<context:annotation-config />
 	<context:component-scan base-package="br.ivj.sandbox.service" />
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	<task:scheduler id="sandboxScheduler" pool-size="10" />
+	<task:annotation-driven scheduler="sandboxScheduler" />
 
 	<bean id="propertyConfigurer"
 		class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
@@ -33,10 +37,8 @@ http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 		class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
 		<property name="algorithm" value="PBEWITHMD5ANDDES" />
 		<property name="password" value="myPass" />
-		<!--
-		Use this if you want to export your password to an environment variable 
-		<property name="passwordEnvName" value="APP_ENCRYPTION_PASSWORD" />
-		 -->
+		<!-- Use this if you want to export your password to an environment variable 
+			<property name="passwordEnvName" value="APP_ENCRYPTION_PASSWORD" /> -->
 	</bean>
 
 	<bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
