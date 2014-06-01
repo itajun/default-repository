@@ -5,7 +5,6 @@ import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -15,7 +14,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import br.ivj.sandbox.entity.Book;
 import br.ivj.sandbox.repository.BookRepository;

@@ -3,7 +3,6 @@ package br.ivj.sandbox.test.service;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import org.crsh.shell.impl.command.system.repl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
