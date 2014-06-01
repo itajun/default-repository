@@ -9,6 +9,7 @@
 		<module>sandbox-model</module>
 		<module>sandbox-persistence</module>
 		<module>sandbox-service</module>
+		<module>sandbox-batch</module>
 	</modules>
 	<properties>
 		<!-- Generic properties -->
@@ -18,9 +19,11 @@
 
 		<!-- Spring -->
 		<spring-framework.version>4.0.5.RELEASE</spring-framework.version>
+		<spring-batch-framework.version>3.0.0.RELEASE</spring-batch-framework.version>
 
 		<!-- Hibernate / JPA -->
 		<hibernate.version>4.2.1.Final</hibernate.version>
+		<atomikos.version>3.7.0</atomikos.version>
 
 		<!-- Logging -->
 		<log4j.version>1.2.17</log4j.version>
@@ -32,7 +35,7 @@
 	</properties>
 
 	<dependencies>
-		<!-- Spring and Transactions -->
+		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -47,6 +50,21 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.batch</groupId>
+			<artifactId>spring-batch-core</artifactId>
+			<version>${spring-batch-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.batch</groupId>
+			<artifactId>spring-batch-infrastructure</artifactId>
+			<version>${spring-batch-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.batch</groupId>
+			<artifactId>spring-batch-test</artifactId>
+			<version>${spring-batch-framework.version}</version>
 		</dependency>
 
 		<!-- Logging with SLF4J & Log4J -->
@@ -75,7 +93,16 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-jdbc</artifactId>
+			<version>${atomikos.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-hibernate3</artifactId>
+			<version>${atomikos.version}</version>
+		</dependency>
 
 		<!-- Test Artifacts -->
 		<dependency>

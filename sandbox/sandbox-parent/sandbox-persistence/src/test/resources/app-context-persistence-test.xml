@@ -12,21 +12,54 @@ http://www.springframework.org/schema/context/spring-context-3.1.xsd
 http://www.springframework.org/schema/util
 http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
-	<import resource="classpath:app-context-persistence.xml"/>
+	<import resource="classpath:app-context-persistence.xml" />
 
 	<beans profile="development">
-		<jdbc:embedded-database id="dataSource" type="H2">
+		<bean id="sandboxJdbcDataSource" class="org.h2.jdbcx.JdbcDataSource">
+			<property name="URL" value="jdbc:h2:mem:xa_test1" />
+			<property name="user" value="sa" />
+			<property name="password" value="" />
+		</bean>
+
+		<jdbc:initialize-database data-source="sandboxJdbcDataSource">
 			<jdbc:script location="classpath:schema.sql" />
 			<jdbc:script location="classpath:test-data.sql" />
-		</jdbc:embedded-database>
+		</jdbc:initialize-database>
+		
+		<bean id="legacyJdbcDataSource" class="org.h2.jdbcx.JdbcDataSource">
+			<property name="URL" value="jdbc:h2:mem:xa_test2" />
+			<property name="user" value="sa" />
+			<property name="password" value="" />
+		</bean>
+
+		<jdbc:initialize-database data-source="legacyJdbcDataSource">
+			<jdbc:script location="classpath:legacy-schema.sql" />
+			<jdbc:script location="classpath:legacy-test-data.sql" />
+		</jdbc:initialize-database>		
 	</beans>
 
 	<beans profile="tests">
-		<!-- Change it accordingly -->
-		<jdbc:embedded-database id="dataSource" type="H2">
+		<bean id="sandboxJdbcDataSource" class="org.h2.jdbcx.JdbcDataSource">
+			<property name="URL" value="jdbc:h2:mem:xa_test1" />
+			<property name="user" value="sa" />
+			<property name="password" value="" />
+		</bean>
+
+		<jdbc:initialize-database data-source="sandboxJdbcDataSource">
 			<jdbc:script location="classpath:schema.sql" />
 			<jdbc:script location="classpath:test-data.sql" />
-		</jdbc:embedded-database>
-	</beans>
+		</jdbc:initialize-database>
+		
+		
+		<bean id="legacyJdbcDataSource" class="org.h2.jdbcx.JdbcDataSource">
+			<property name="URL" value="jdbc:h2:mem:xa_test2" />
+			<property name="user" value="sa" />
+			<property name="password" value="" />
+		</bean>
 
+		<jdbc:initialize-database data-source="legacyJdbcDataSource">
+			<jdbc:script location="classpath:legacy-schema.sql" />
+			<jdbc:script location="classpath:legacy-test-data.sql" />
+		</jdbc:initialize-database>		
+	</beans>
 </beans>

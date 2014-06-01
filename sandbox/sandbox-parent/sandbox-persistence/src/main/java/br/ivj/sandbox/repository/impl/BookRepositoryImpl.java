@@ -10,23 +10,27 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.ivj.sandbox.entity.Book;
 import br.ivj.sandbox.repository.BookRepository;
 import br.ivj.sandbox.repository.impl.commands.InsertBookCommand;
 
-@Repository
+@Repository("sandboxBookRepository")
+@Transactional
 public class BookRepositoryImpl implements BookRepository {
 	private static final Logger logger = LoggerFactory
 			.getLogger(BookRepositoryImpl.class);
 
 	@Autowired
+	@Qualifier("sandboxDataSource")
 	private DataSource dataSource;
 
 	public Book createBook(Book book) {
@@ -42,7 +46,16 @@ public class BookRepositoryImpl implements BookRepository {
 
 		return book;
 	}
+	
+	public void deleteBook(Integer id) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		if (jdbcTemplate.update("DELETE FROM BOOK WHERE BOOK_ID = ?", new Object[] {id}) == 0) {
+			// TODO BusinessException and internationalization
+			throw new RuntimeException(String.format("Coundn't find book with id [%d] to delete.", id));
+		}
+	}	
 
+	@Transactional(readOnly=true)
 	public Book findBookById(Integer id) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		return jdbcTemplate.query("SELECT BOOK_ID, TITLE, AUTHOR FROM BOOK WHERE BOOK_ID = ?", new Object[] {id}, new ResultSetExtractor<Book>() {

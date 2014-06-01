@@ -17,6 +17,7 @@ import br.ivj.sandbox.service.BookService;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,6 +26,7 @@ import com.github.springtestdbunit.annotation.ExpectedDatabase;
 @ActiveProfiles(profiles = { "development" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 		DbUnitTestExecutionListener.class })
+@DbUnitConfiguration(databaseConnection="sandboxJdbcDataSource")
 public class BookServiceDBUnitTest {
 	@Autowired
 	private BookService bookService;
