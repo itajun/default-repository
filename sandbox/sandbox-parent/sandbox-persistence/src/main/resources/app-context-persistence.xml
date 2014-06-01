@@ -20,7 +20,7 @@ http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<!-- Construct Atomikos UserTransactionManager, needed to configure Spring -->
-	<bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+	<bean id="atomikosSandboxTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
 		init-method="init" destroy-method="close">
 		<!-- when close is called, should we force transactions to terminate or 
 			not? -->
@@ -52,7 +52,7 @@ http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 	<bean id="transactionManager"
 		class="org.springframework.transaction.jta.JtaTransactionManager">
 		<property name="transactionManager">
-			<ref bean="atomikosTransactionManager" />
+			<ref bean="atomikosSandboxTransactionManager" />
 		</property>
 		<property name="userTransaction">
 			<ref bean="atomikosUserTransaction" />

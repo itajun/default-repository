@@ -19,45 +19,33 @@ http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 	<context:component-scan base-package="br.ivj.sandbox.batch" />
 
 	<beans>
-		<bean id="jobJdbcDataSource" class="org.h2.jdbcx.JdbcDataSource">
-			<property name="URL" value="jdbc:h2:mem:xa_testJob" />
-			<property name="user" value="sa" />
+		<bean id="jobDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+			<property name="driverClassName" value="org.h2.Driver" />
+			<property name="url" value="jdbc:h2:mem:xa_testJob" />
+			<property name="username" value="sa" />
 			<property name="password" value="" />
+		</bean>
+
+		<bean id="jobTransactionManager"
+			class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+			lazy-init="true">
+			<property name="dataSource" ref="jobDataSource" />
 		</bean>
 
 		<jdbc:initialize-database data-source="jobDataSource">
 			<jdbc:script
+				location="classpath:/org/springframework/batch/core/schema-drop-h2.sql" />
+			<jdbc:script
 				location="classpath:/org/springframework/batch/core/schema-h2.sql" />
 		</jdbc:initialize-database>
-
-		<!-- Construct Atomikos UserTransactionManager, needed to configure Spring -->
-		<bean id="atomikosJobTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
-			init-method="init" destroy-method="close">
-			<!-- when close is called, should we force transactions to terminate or not? -->
-			<property name="forceShutdown">
-				<value>true</value>
-			</property>
-		</bean>
-
-		<!-- Also use Atomikos UserTransactionImp, needed to configure Spring -->
-		<bean id="atomikosJobUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp">
-			<property name="transactionTimeout">
-				<value>300</value>
-			</property>
-		</bean>
-
-		<bean id="jobDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean"
-			init-method="init" destroy-method="close">
-			<property name="xaDataSource" ref="jobJdbcDataSource" />
-			<property name="uniqueResourceName" value="jobDatabase" />
-		</bean>
 
 		<bean id="jobRepository"
 			class="org.springframework.batch.core.repository.support.JobRepositoryFactoryBean">
 			<property name="databaseType" value="h2" />
 			<property name="dataSource" ref="jobDataSource" />
-			<property name="transactionManager" ref="transactionManager" />
+			<property name="transactionManager" ref="jobTransactionManager" />
 			<property name="isolationLevelForCreate" value="ISOLATION_DEFAULT" />
+			<property name="validateTransactionState" value="false" />
 		</bean>
 
 		<bean id="jobLauncher"
