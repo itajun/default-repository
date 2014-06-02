@@ -38,7 +38,7 @@ http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 		</jdbc:initialize-database>		
 	</beans>
 
-	<beans profile="tests">
+	<beans profile="test">
 		<bean id="sandboxJdbcDataSource" class="org.h2.jdbcx.JdbcDataSource">
 			<property name="URL" value="jdbc:h2:mem:xa_test1" />
 			<property name="user" value="sa" />

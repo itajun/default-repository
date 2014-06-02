@@ -5,29 +5,42 @@
 		<groupId>br.ivj.sandbox</groupId>
 		<artifactId>sandbox-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
+	<packaging>war</packaging>
+
 	<artifactId>sandbox-webservices</artifactId>
 
 	<dependencies>
-		<!-- TODO -> MOVE TO FRONTEND Spring MVC -->
+		<dependency>
+			<groupId>br.ivj.sandbox</groupId>
+			<artifactId>sandbox-model</artifactId>
+			<version>${pom.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>br.ivj.sandbox</groupId>
+			<artifactId>sandbox-service</artifactId>
+			<version>${pom.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>br.ivj.sandbox</groupId>
+			<artifactId>sandbox-persistence</artifactId>
+			<version>${pom.parent.version}</version>
+		</dependency>
+
+		<!-- JAX-WS -->
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-ri</artifactId>
+			<version>2.2.8</version>
+		</dependency>
+
+		<!-- Spring framework -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
+			<artifactId>spring-web</artifactId>
 			<version>${spring-framework.version}</version>
 		</dependency>
 
-		<!-- Other Web dependencies -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>2.1</version>
-			<scope>provided</scope>
-		</dependency>
 	</dependencies>
 </project>

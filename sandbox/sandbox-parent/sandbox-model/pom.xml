@@ -5,7 +5,7 @@
 		<groupId>br.ivj.sandbox</groupId>
 		<artifactId>sandbox-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../sandbox-parent/pom.xml</relativePath>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	
 	<artifactId>sandbox-model</artifactId>
