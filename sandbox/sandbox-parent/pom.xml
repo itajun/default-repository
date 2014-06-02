@@ -10,6 +10,7 @@
 		<module>sandbox-persistence</module>
 		<module>sandbox-service</module>
 		<module>sandbox-batch</module>
+		<module>sandbox-webservices</module>
 	</modules>
 	<properties>
 		<!-- Generic properties -->
