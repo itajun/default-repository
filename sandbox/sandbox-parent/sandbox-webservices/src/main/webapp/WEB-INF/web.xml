@@ -2,28 +2,33 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 
-  <!-- spring framework context configuration -->
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>
+	<!-- spring framework context configuration -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
     	classpath:app-context-webservices.xml,
     	classpath:app-context-service.xml,
     	classpath:app-context-persistence.xml
     </param-value>
-  </context-param>
+	</context-param>
 	<context-param>
-	    <param-name>spring.profiles.active</param-name>
-	    <param-value>production</param-value>
-	</context-param>  
-  
-   
-  <!-- Spring Context Listener -->
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>   
-  </listener>
+		<param-name>spring.profiles.active</param-name>
+		<param-value>production</param-value>
+	</context-param>
 
-  <listener>
-    <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
-  </listener>  
-   
+
+	<!-- Spring Context Listener -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- These are for JAX-WS -->
+	<servlet>
+		<servlet-name>jaxws-servlet</servlet-name>
+		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSSpringServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>jaxws-servlet</servlet-name>
+		<url-pattern>/services/bookWS</url-pattern>
+	</servlet-mapping>
 </web-app>
