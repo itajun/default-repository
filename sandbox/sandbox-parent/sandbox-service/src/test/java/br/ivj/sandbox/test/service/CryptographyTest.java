@@ -29,7 +29,7 @@ import br.ivj.sandbox.service.EncryptionService;
 @ContextConfiguration(locations = { "/app-context-service-test.xml",
 		"/app-context-persistence-test.xml" })
 @ActiveProfiles(profiles = { "development" })
-public class CryptographyTests {
+public class CryptographyTest {
 	@Autowired
 	@Qualifier("encryptionService")
 	private EncryptionService encryptionService;

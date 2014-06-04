@@ -6,7 +6,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-    	classpath:app-context-webservices.xml,
+    	/WEB-INF/app-context-webservices.xml,
     	classpath:app-context-service.xml,
     	classpath:app-context-persistence.xml
     </param-value>
@@ -16,19 +16,25 @@
 		<param-value>production</param-value>
 	</context-param>
 
-
 	<!-- Spring Context Listener -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<!-- These are for JAX-WS -->
-	<servlet>
-		<servlet-name>jaxws-servlet</servlet-name>
-		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSSpringServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>jaxws-servlet</servlet-name>
-		<url-pattern>/services/bookWS</url-pattern>
-	</servlet-mapping>
+    <listener>
+        <listener-class>
+                com.sun.xml.ws.transport.http.servlet.WSServletContextListener
+        </listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>jax-ws</servlet-name>
+        <servlet-class>
+        	com.sun.xml.ws.transport.http.servlet.WSServlet
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jax-ws</servlet-name>
+        <url-pattern>/webservices/*</url-pattern>
+    </servlet-mapping>
 </web-app>

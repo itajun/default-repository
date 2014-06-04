@@ -2,22 +2,16 @@ package br.ivj.sandbox.webservice;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import javax.jws.soap.SOAPBinding;
+import javax.jws.soap.SOAPBinding.Style;
 
 import br.ivj.sandbox.entity.Book;
-import br.ivj.sandbox.service.BookService;
 
-@WebService(serviceName = "bookWS")
-public class BookWS extends SpringBeanAutowiringSupport {
-	@Autowired
-	private BookService bookService;
+@WebService(name="BookWS")
+@SOAPBinding(style = Style.RPC)
+public interface BookWS {
 
-	@WebMethod(operationName = "createBook")
-	public Book createBook(Book book) {
+	@WebMethod
+	public Book createBook(Book book);
 
-		return bookService.createBook(book);
-
-	}
 }

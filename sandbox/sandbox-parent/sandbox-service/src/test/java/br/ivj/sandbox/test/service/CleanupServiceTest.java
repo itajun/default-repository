@@ -32,7 +32,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 		DbUnitTestExecutionListener.class })
 @DbUnitConfiguration(databaseConnection = "legacyJdbcDataSource")
-public class CleanupServiceTests {
+public class CleanupServiceTest {
 	@Spy
 	private JdbcTemplate jdbcTemplate;
 
