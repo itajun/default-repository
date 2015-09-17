@@ -219,7 +219,7 @@
 									<pluginExecutionFilter>
 										<groupId></groupId>
 										<artifactId></artifactId>
-										<versionRange>[,)</versionRange>
+										<versionRange>[1.0.0,)</versionRange>
 										<goals>
 											<goal></goal>
 										</goals>
