@@ -11,6 +11,7 @@
 		<module>sandbox-service</module>
 		<module>sandbox-batch</module>
 		<module>sandbox-webservices</module>
+		<module>sandbox-reactor</module>
 	</modules>
 	<properties>
 		<!-- Generic properties -->
